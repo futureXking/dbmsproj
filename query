@@ -1,0 +1,24 @@
+--1.List of Books with Authors, Categories, and Publishers
+
+SELECT books.book_id, books.title, authors.name AS author, categories.category_name, 
+       publishers.name AS publisher, books.genre, books.quantity
+FROM books
+JOIN authors ON books.author_id = authors.author_id
+JOIN categories ON books.category_id = categories.category_id
+JOIN publishers ON books.publisher_id = publishers.publisher_id;
+
+--2.Issued Books with User Names and Status
+
+SELECT issued_books.issue_id, users.name AS user, books.title, issued_books.issue_date, 
+       issued_books.return_date, issued_books.status
+FROM issued_books
+JOIN users ON issued_books.user_id = users.user_id
+JOIN books ON issued_books.book_id = books.book_id;
+
+--3.Number of Books in Each Category
+
+SELECT categories.category_name, COUNT(books.book_id) AS total_books
+FROM categories
+LEFT JOIN books ON categories.category_id = books.category_id
+GROUP BY categories.category_name;
+
